@@ -11,11 +11,11 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
+  - pacman
+  - ghost
+  - pellet
+  - Obstacle
+  - node
   - 
   - 
   - 

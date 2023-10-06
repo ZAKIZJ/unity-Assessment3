@@ -14,7 +14,7 @@ public class AnimatorController : MonoBehaviour
 
     void Update()
     {
-        // 重置所有动画状态
+        
         ResetAnimatorBooleans();
 
         float horizontal = Input.GetAxis("Horizontal");
@@ -22,7 +22,7 @@ public class AnimatorController : MonoBehaviour
 
         if (horizontal != 0 || vertical != 0)
         {
-            // 只有当有输入时才更新方向
+            
             direction = new Vector2(horizontal, vertical);
         }
 

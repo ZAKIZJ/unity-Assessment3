@@ -1,41 +1,40 @@
 using UnityEngine;
 using UnityEngine.UI;
-using System;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
-public class TimerController : MonoBehaviour
+public class GameHUDController : MonoBehaviour
 {
-    public Text timeText;
-    private TimeSpan timePlaying;
-    private bool timerGoing;
-    private float elapsedTime;
+    public Text gameTimerText;
+    public Button exitButton;
+
+    private float timer;
 
     private void Start()
     {
-        timeText.text = "00:00:00";
-        timerGoing = false;
-
-        BeginTimer();
+        timer = 0f;
+        exitButton.onClick.AddListener(OnExitButtonClick);
     }
 
-    public void BeginTimer()
+    private void Update()
     {
-        timerGoing = true;
-        elapsedTime = 0f;
-
-        StartCoroutine(UpdateTimer());
+        timer += Time.deltaTime;
+        UpdateGameTimer();
     }
 
-    private IEnumerator UpdateTimer()
+    // Updates the game timer text on the HUD
+    private void UpdateGameTimer()
     {
-        while (timerGoing)
-        {
-            elapsedTime += Time.deltaTime;
-            timePlaying = TimeSpan.FromSeconds(elapsedTime);
-            string timePlayingStr = timePlaying.ToString("mm':'ss':'ff");
-            timeText.text = timePlayingStr;
+        int minutes = (int)(timer / 60);
+        int seconds = (int)(timer % 60);
+        int milliseconds = (int)((timer * 100) % 100);
 
-            yield return null;
-        }
+        gameTimerText.text = string.Format("{0:00}:{1:00}:{2:00}", minutes, seconds, milliseconds);
+    }
+
+    // Handles the click event of the exit button
+    private void OnExitButtonClick()
+    {
+        SceneManager.LoadScene("StartScene"); // Replace "StartScene" with the name of your start scene
     }
 }
